@@ -59,8 +59,16 @@
   font-size: 16px;
 }
 
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color:black;
+}
+
 .App-spacing {
-  padding: 15px 32px;
+  padding: 10px 32px;
 }
 
 @keyframes App-logo-spin {
