@@ -24,12 +24,12 @@ class WelcomeRep extends Component {
                 Welcome {this.props.params.name} to Sale Rep App.  <Link to='/listCandidates'>Click here</Link> to view candidates list.
             </div>
 
-            <div>
+            {/* <div>
                 <button className="btn btn-success" onClick={this.executeMyBean}>Click Me</button>
             </div>
             <div className="container">
                 {this.state.welcomeMessage}
-            </div>
+            </div> */}
             </>
         )
     }

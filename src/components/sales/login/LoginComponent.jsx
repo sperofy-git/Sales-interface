@@ -46,7 +46,7 @@ class LoginComponent extends Component {
         {
             //this.props.history.push('/welcome')
             Authentication.registerSuccessful(this.state.username, this.state.password)
-            this.props.navigate('/welcome')
+            this.props.navigate('/welcome/admin')
             // this.setState(
             //     {
             //         showSuccessMessage: true,

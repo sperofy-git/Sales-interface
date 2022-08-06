@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import CandidatesDataService from '../../../api/sales/CandidatesDataService.js'
 import Authentication from '../login/Authentication.jsx';
+import CandidateComponent from './CandidateComponent.jsx';
 
 
 class ListCandidatesComponent extends Component {
@@ -60,6 +61,7 @@ class ListCandidatesComponent extends Component {
     updateClicked(id) {
         let username = Authentication.getLoggedUser()
 
+        this.props.navigate(`/candidates/${id}`)
        // console.log('Update Button Clicked ' + id + " " + username)
 
     }

@@ -10,6 +10,7 @@ import LogoutComponent from './login/LogoutComponent';
 import ErrorComponent from './common/ErrorComponent';
 import WelcomeRep from './rep/WelcomeRep';
 import ListCandidatesComponent from './candidates/ListCandidatesComponent';
+import CandidateComponent from './candidates/CandidateComponent';
 
 export default class Sales extends Component {
     
@@ -17,6 +18,9 @@ export default class Sales extends Component {
         const LoginComponentWithNavigation = new withNavigation(LoginComponent);
         const HeaderComponentWithNavigation = withNavigation(HeaderComponent);
         const WelcomeComponentWithParams = withParams(WelcomeRep);
+        const ListTodosComponentWithNavigation = withNavigation(ListCandidatesComponent) 
+        const CandidateComponentWithParamsAndNavigation = withParams(withNavigation(CandidateComponent));
+
 
         return (
 
@@ -32,9 +36,14 @@ export default class Sales extends Component {
                     <WelcomeComponentWithParams/> 
                     </AuthenticatedRoute>
                     }/>
+                    <Route path="/candidates/:id" element={ 
+			            	<AuthenticatedRoute>
+			            		<CandidateComponentWithParamsAndNavigation />
+			            	</AuthenticatedRoute>
+			            } />
                     <Route path='/listCandidates' element={
                     <AuthenticatedRoute>
-                    <ListCandidatesComponent/>
+                    <ListTodosComponentWithNavigation/>
                     </AuthenticatedRoute>
                     }/>
                     <Route path='/logout' element={
