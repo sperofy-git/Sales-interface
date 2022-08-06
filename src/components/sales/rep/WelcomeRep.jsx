@@ -21,7 +21,7 @@ class WelcomeRep extends Component {
             <>
             <h1>Welcome!</h1>
             <div className="container">
-                Welcome to Sale Rep App.  <Link to='/listCandidates'>Click here</Link> to view candidates list.
+                Welcome {this.props.params.name} to Sale Rep App.  <Link to='/listCandidates'>Click here</Link> to view candidates list.
             </div>
 
             <div>

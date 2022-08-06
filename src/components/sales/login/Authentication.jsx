@@ -17,6 +17,14 @@ class Authentication {
         else
             return true
     }
+
+    getLoggedUser() {
+        let user =  sessionStorage.getItem('authenticatedUser')
+        if (user===null)
+            return 'default user'
+        else
+            return user
+    }
 }
 
 export default new Authentication();

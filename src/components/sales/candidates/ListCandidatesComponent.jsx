@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import CandidatesDataService from '../../../api/sales/CandidatesDataService.js'
+import Authentication from '../login/Authentication.jsx';
 
 
 class ListCandidatesComponent extends Component {
@@ -18,7 +19,9 @@ class ListCandidatesComponent extends Component {
     }
 
     componentDidMount () {
-        CandidatesDataService.executeAllCandidatesDS().then(
+        let username = Authentication.getLoggedUser()
+
+        CandidatesDataService.executeAllCandidatesDS(username).then(
             response => {
                 console.log(response.data)
             this.setState( {
@@ -37,6 +40,8 @@ class ListCandidatesComponent extends Component {
                             <th>Name</th>
                             <th>Primary Skill</th>
                             <th>Secondary Skill</th>
+                            <th>Delete</th>
+                            <th>Update</th>
                         </tr>
                     </thead>
                     <tbody>     
@@ -48,6 +53,8 @@ class ListCandidatesComponent extends Component {
                                 <td>{candidate.name} </td>
                                 <td>{candidate.primarySkill} </td>
                                 <td>{candidate.secondarySkill} </td>
+                                <td><button>Delete</button></td>
+                                <td><button>Update</button></td>
                                 </tr>
                              )
                         }                   

@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import AuthenticatedRoute from './login/AuthenticatedRoute';
 import HeaderComponent from './common/HeaderComponent';
 import FooterComponent from './common/FooterComponent'
@@ -15,6 +16,8 @@ export default class Sales extends Component {
     render () {
         const LoginComponentWithNavigation = new withNavigation(LoginComponent);
         const HeaderComponentWithNavigation = withNavigation(HeaderComponent);
+        const WelcomeComponentWithParams = withParams(WelcomeRep);
+
         return (
 
             <div className='Sales'>
@@ -24,9 +27,9 @@ export default class Sales extends Component {
                     <Routes>
                     <Route path='/' exact element={<LoginComponentWithNavigation/>}/>
                     <Route path='/login' element={<LoginComponentWithNavigation/>}/>
-                    <Route path='/welcome' element={
+                    <Route path='/welcome/:name' element={
                     <AuthenticatedRoute>
-                    <WelcomeRep/> 
+                    <WelcomeComponentWithParams/> 
                     </AuthenticatedRoute>
                     }/>
                     <Route path='/listCandidates' element={
@@ -50,10 +53,9 @@ export default class Sales extends Component {
     }
 }
 
-
-
-
-
+function withParams(Component) {
+    return props => <Component {...props} params={useParams()} />;
+  }
 
 function withNavigation(Component) {
     return props => <Component {...props} navigate={useNavigate()} />;
