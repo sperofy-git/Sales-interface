@@ -18,7 +18,7 @@ export default class Sales extends Component {
         const LoginComponentWithNavigation = new withNavigation(LoginComponent);
         const HeaderComponentWithNavigation = withNavigation(HeaderComponent);
         const WelcomeComponentWithParams = withParams(WelcomeRep);
-        const ListTodosComponentWithNavigation = withNavigation(ListCandidatesComponent) 
+        const ListCandidatesComponentWithNavigation = withNavigation(ListCandidatesComponent) 
         const CandidateComponentWithParamsAndNavigation = withParams(withNavigation(CandidateComponent));
 
 
@@ -43,7 +43,7 @@ export default class Sales extends Component {
 			            } />
                     <Route path='/listCandidates' element={
                     <AuthenticatedRoute>
-                    <ListTodosComponentWithNavigation/>
+                    <ListCandidatesComponentWithNavigation/>
                     </AuthenticatedRoute>
                     }/>
                     <Route path='/logout' element={
