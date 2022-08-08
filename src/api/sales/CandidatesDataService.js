@@ -2,14 +2,25 @@ import axios from "axios";
 
 class CandidatesDataService {
 
-    executeAllCandidatesDS(name) {
-        return axios.get(`http://localhost:8080/users/${name}/all_listCandidates`)
+    executeAllCandidatesDS(userName) {
+        return axios.get(`http://localhost:8080/users/${userName}/all_listCandidates`)
      }
 
-     removeCandidate(name,id) {
-        return axios.delete(`http://localhost:8080/users/${name}/candidates/${id}`)
+     getCandidateService(userName,id) {
+        return axios.get(`http://localhost:8080/users/${userName}/candidates/${id}`)
+     }
+
+     removeCandidate(userName,id) {
+        return axios.delete(`http://localhost:8080/users/${userName}/candidates/${id}`)
      }
  
+     updateCandidate(userName,id, candidate) {
+        return axios.put(`http://localhost:8080/users/${userName}/candidates/${id}`,candidate)
+     }
+
+     createCandidate(userName, candidate) {
+        return axios.post(`http://localhost:8080/users/${userName}/candidates`,candidate)
+     }
 
 }
 

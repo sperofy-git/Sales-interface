@@ -31,7 +31,7 @@ export default class Sales extends Component {
                     <Routes>
                     <Route path='/' exact element={<LoginComponentWithNavigation/>}/>
                     <Route path='/login' element={<LoginComponentWithNavigation/>}/>
-                    <Route path='/welcome/:name' element={
+                    <Route path='/welcome/:candidateName' element={
                     <AuthenticatedRoute>
                     <WelcomeComponentWithParams/> 
                     </AuthenticatedRoute>

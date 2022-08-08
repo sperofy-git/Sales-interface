@@ -1,8 +1,9 @@
 import React, {Component} from "react";
-import { Formik , Form, Field} from 'formik';
+import { Formik , Form, Field, ErrorMessage} from 'formik';
 import Authentication from "../login/Authentication";
 import CandidatesDataService from "../../../api/sales/CandidatesDataService";
-import moment from "moment";
+//import {moment} from "moment";
+
 
 class CandidateComponent extends Component {
 
@@ -11,7 +12,7 @@ class CandidateComponent extends Component {
 
         this.state = {
             id: this.props.params.id, 
-            name: this.props.params.name,
+            candidateName: this.props.params.candidateName,
             primarySkill: '',
             secondarySkill: ''
         }
@@ -22,15 +23,15 @@ class CandidateComponent extends Component {
     }
 
     componentDidMount() {
-
         if (this.state.id === -1) {
             return
         }
 
         let username = Authentication.getLoggedUser()
 
-        CandidatesDataService.executeAllCandidatesDS(username, this.state.id)
+        CandidatesDataService.getCandidateService(username, this.state.id)
             .then(response => this.setState({
+                candidateName: response.data.candidateName,
                 primarySkill: response.data.primarySkill,
                 secondarySkill: response.data.secondarySkill
 
@@ -40,13 +41,13 @@ class CandidateComponent extends Component {
     validate(values) {
         let errors = {}
         if (!values.primarySkill) {
-            errors.primarySkill = 'Enter a Description'
-        } else if (values.primarySkill.length < 5) {
-            errors.primarySkill = 'Enter atleast 5 Characters in Description'
+            errors.primarySkill = 'Enter a primary skill'
+        } else if (values.primarySkill.length < 2) {
+            errors.primarySkill = 'Enter atleast 5 Characters in primary skill'
         }
 
-        if (!moment(values.secondarySkill).isValid()) {
-            errors.secondarySkill = 'Enter a valid Target Date'
+        if (!values.secondarySkill) {
+            errors.secondarySkill = 'Enter a valid secondary skill'
         }
 
         return errors
@@ -58,36 +59,50 @@ class CandidateComponent extends Component {
 
         let candidate = {
             id: this.state.id,
+            candidateName: values.candidateName,
             primarySkill: values.primarySkill,
             secondarySkill: values.secondarySkill
         }
 
-        // if (this.state.id === -1) {
-        //     CandidatesDataService.createTodo(username, todo)
-        //         .then(() => this.props.navigate('/todos')) //REACT-6
-        //     //this.props.history.push('/todos')
-        // } else {
-        //     CandidatesDataService.updateTodo(username, this.state.id, todo)
-        //         .then(() => this.props.navigate('/todos'))//REACT-6
-        //     //this.props.history.push('/todos')
-        // }
+        if (this.state.id === -1) {
+             CandidatesDataService.createCandidate(username,candidate)
+                .then(() => this.props.navigate('/listCandidates')) //REACT-6
+        //     //this.props.history.push('/listCandidates')
+        } else {
+             CandidatesDataService.updateCandidate(username, this.state.id, candidate)
+                .then(() => this.props.navigate('/listCandidates'))//REACT-6
+             //this.props.history.push('/listCandidates')
+         }
 
         console.log(values);
     }
 
     render() {
-        let {primarySkill,secondarySkill} = this.state
+        let {candidateName, primarySkill,secondarySkill} = this.state
         return(
             <div>
-                <h1>Candidate - {this.props.params.id} </h1>
+                <h1>Candidate - {this.state.candidateName} </h1>
                 <div className='container'>
                     <Formik
-                        initialValues={{primarySkill,secondarySkill}}
+                        initialValues={{candidateName,primarySkill,secondarySkill}}
                         onSubmit={this.onSubmit}
+                        validateOnBlur={false}
+                        validateOnChange={false}
+                        validate={this.validate}
+                        enableReinitialize={true}
                     >
                         {                            
                             (props) => (
                                 <Form>
+                                    <ErrorMessage name="primarySkill" component="div"
+                                        className="alert alert-warning" />
+                                    <ErrorMessage name="secondarySkill" component="div"
+                                        className="alert alert-warning" />
+                                    <label>{this.state.id}</label>
+                                    <fieldset className="form-group">
+                                        <label>Candidate Name</label>
+                                        <Field className='form-control' type='text' name='candidateName' />
+                                    </fieldset>
                                     <fieldset className="form-group">
                                         <label>Primary Skill</label>
                                         <Field className='form-control' type='text' name='primarySkill' />

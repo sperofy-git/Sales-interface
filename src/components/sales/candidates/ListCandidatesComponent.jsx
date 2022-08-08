@@ -23,6 +23,7 @@ class ListCandidatesComponent extends Component {
         this.deleteClicked = this.deleteClicked.bind(this)
         this.updateClicked = this.updateClicked.bind(this)
         this.refreshCandidateList = this.refreshCandidateList.bind(this)
+        this.addCandidateClicked = this.addCandidateClicked.bind(this)
 
     }
 
@@ -66,6 +67,11 @@ class ListCandidatesComponent extends Component {
 
     }
 
+    addCandidateClicked() {
+        this.props.navigate(`/candidates/-1`)
+
+    }
+
     render() {
         return (
             <div className="container">
@@ -88,7 +94,7 @@ class ListCandidatesComponent extends Component {
                                 candidate =>  
                                 <tr key={candidate.id}>
                                 <td>{candidate.id} </td>
-                                <td>{candidate.name} </td>
+                                <td>{candidate.candidateName} </td>
                                 <td>{candidate.primarySkill} </td>
                                 <td>{candidate.secondarySkill} </td>
                                 <td><button className='btn btn-warning' onClick={() => this.deleteClicked(candidate.id)}>Delete</button></td>
@@ -101,7 +107,7 @@ class ListCandidatesComponent extends Component {
                             candidate => 
                             <tr key={candidate.Id}>
                             {/* //<td>{candidate.ID}</td> 
-                            <td>{candidate.Name}</td>
+                            <td>{candidate.candidateName}</td>
                             <td>{candidate.PrimarySkill}</td>
                             <td>{candidate.SecondarySkill}</td>
                         </tr>
@@ -110,13 +116,10 @@ class ListCandidatesComponent extends Component {
                         } */}
                     </tbody>
                 </table>
+                <div>
+                    <button className='btn btn-success' onClick={this.addCandidateClicked}>Add Candidate</button>
+                </div>
             </div>
-            // <div>
-            //     {this.state.candidates.map(
-            //         //x => console.log(x.id)
-            //         x => x.name
-            //     )}
-            // </div>
         )
     }
 }
