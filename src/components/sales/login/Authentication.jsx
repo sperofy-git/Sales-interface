@@ -1,8 +1,14 @@
+import axios from "axios";
+
 class Authentication {
 
-    registerSuccessful(user, pass)
+    registerSuccessful(username, password)
     {
-        sessionStorage.setItem('authenticatedUser',user);
+
+        let basicAuthHeader = 'Basic ' + window.btoa(username + ':' + password) 
+        sessionStorage.setItem('authenticatedUser',username);
+        
+        this.setupAxiosInterceptors(basicAuthHeader);
     }
 
     unRegisterSuccessful(user, pass)
@@ -24,6 +30,19 @@ class Authentication {
             return 'default user'
         else
             return user
+    }
+
+    setupAxiosInterceptors(basicAuthHeader) {
+              
+        //console.log("************ " + basicAuthHeader)
+        axios.interceptors.request.use(
+            (config) => {
+                if(this.isUserLoggedIn()){
+                config.headers.authorization = basicAuthHeader
+                 }
+                 return config
+            }
+        )
     }
 }
 
