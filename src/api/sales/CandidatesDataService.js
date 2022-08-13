@@ -1,25 +1,26 @@
 import axios from "axios";
+import { API_URL } from "../../components/sales/common/Constants";
 
 class CandidatesDataService {
 
     executeAllCandidatesDS(userName) {
-        return axios.get(`http://localhost:8080/users/${userName}/all_listCandidates`)
+        return axios.get(`${API_URL}/users/${userName}/all_listCandidates`)
      }
 
      getCandidateService(userName,id) {
-        return axios.get(`http://localhost:8080/users/${userName}/candidates/${id}`)
+        return axios.get(`${API_URL}/users/${userName}/candidates/${id}`)
      }
 
      removeCandidate(userName,id) {
-        return axios.delete(`http://localhost:8080/users/${userName}/candidates/${id}`)
+        return axios.delete(`${API_URL}/users/${userName}/candidates/${id}`)
      }
  
      updateCandidate(userName,id, candidate) {
-        return axios.put(`http://localhost:8080/users/${userName}/candidates/${id}`,candidate)
+        return axios.put(`${API_URL}/users/${userName}/candidates/${id}`,candidate)
      }
 
      createCandidate(userName, candidate) {
-        return axios.post(`http://localhost:8080/users/${userName}/candidates`,candidate)
+        return axios.post(`${API_URL}/users/${userName}/candidates`,candidate)
      }
 
 }
